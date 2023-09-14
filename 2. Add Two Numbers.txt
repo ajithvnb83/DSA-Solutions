@@ -1,0 +1,118 @@
+2. Add Two Numbers
+Medium
+Topics
+Companies
+You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.
+
+You may assume the two numbers do not contain any leading zero, except the number 0 itself.
+
+ 
+
+Example 1:
+
+
+Input: l1 = [2,4,3], l2 = [5,6,4]
+Output: [7,0,8]
+Explanation: 342 + 465 = 807.
+Example 2:
+
+Input: l1 = [0], l2 = [0]
+Output: [0]
+Example 3:
+
+Input: l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]
+Output: [8,9,9,9,0,0,0,1]
+ 
+
+Constraints:
+
+The number of nodes in each linked list is in the range [1, 100].
+0 <= Node.val <= 9
+It is guaranteed that the list represents a number that does not have leading zeros.
+
+
+solution:
+
+
+/**
+ * Definition for singly-linked list.
+ * class ListNode {
+ *   int val;
+ *   ListNode? next;
+ *   ListNode([this.val = 0, this.next]);
+ * }
+ */
+class Solution {
+  ListNode? addTwoNumbers(ListNode? l1, ListNode? l2) {
+    String l1String ="";
+    String reversedl1String ="";
+    String l2String ="";
+    String reversedl2String ="";
+    while (l1 != null) {
+        l1String = l1String + (l1.val).toString();
+        l1 = l1.next;
+    }
+    while (l2 != null) {
+        l2String = l2String + (l2.val).toString();
+        l2 = l2.next;
+    }
+    int lenOfl1String = l1String.length;
+    int lenOfl2String = l2String.length;
+    print("len $lenOfl1String");
+    for (int i=0;i<lenOfl1String; i++){
+        reversedl1String = reversedl1String + l1String[(lenOfl1String-i)-1];
+    }
+     print(reversedl1String);
+    for (int i=0;i<lenOfl2String; i++){
+        reversedl2String = reversedl2String + l2String[(lenOfl2String-i)-1];
+    }
+    print(reversedl2String);
+    var val1 = 0;
+    var val2 =0;
+    if(lenOfl1String !=0){
+        if(lenOfl2String!=0){
+         val1 = int.parse(reversedl1String);
+         val2 = int.parse(reversedl2String);
+        }else{
+            val1 = int.parse(reversedl1String);
+        }
+    }
+    int exactReverseAnswerInt = val1+val2;
+    String exactReverseAnswer = "$exactReverseAnswerInt";
+    String exactAnswer = "";
+    for(int i= 0; i< exactReverseAnswer.length;i++){
+        exactAnswer =exactAnswer+ exactReverseAnswer[(exactReverseAnswer.length - i)-1];
+    }
+    print(exactAnswer);
+    ListNode? returnList = stringToListNode(exactAnswer);
+    
+    // for(var i=0;i<exactAnswer.length;i++){
+        // print("Testing ${exactAnswer[i]}");
+        // returnList.val = int.parse(exactAnswer[i]);
+        // returnList.next;
+    // }
+    return returnList!;
+  }
+
+ListNode? stringToListNode(String s) {
+  if (s.isEmpty) {
+    return null;
+  }
+
+  ListNode? head;
+  ListNode? current;
+
+  for (int i = 0; i < s.length; i++) {
+    final newNode = ListNode(int.parse(s[i]));
+    if (head == null) {
+      head = newNode;
+      current = head;
+    } else {
+      current!.next = newNode;
+      current = newNode;
+    }
+  }
+
+  return head;
+}
+}
